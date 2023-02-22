@@ -5,7 +5,7 @@ Simple and minimal directory using pre-made to use Docker Compose to run a LAMP 
 
 1. Clone this repo.
 
-2.  (Optional) modify the MySQL credentials by editing `docker-compose.yml`.
+2. (Optional) modify the MySQL credentials by editing `docker-compose.yml`.
 
 3. Starting in the cloned directory, run the following:
 
@@ -42,5 +42,16 @@ Simple and minimal directory using pre-made to use Docker Compose to run a LAMP 
    flush privileges;
    ```
 
-   
+6. Build your Apache webserver. It is already configured to use a **bind volume**, mapping the `www` directory in the repo into `/var/www` in the Apache instance. Any changes you make within `www` will are also happening in the instance
 
+7. When you are done, shut down the stack:
+   ```
+   docker compose down
+   ```
+
+   or if you also want to delete the MySQL database:
+   ```
+   docker compose down --volumes
+   ```
+
+   
