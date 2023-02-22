@@ -1,0 +1,38 @@
+services:
+    php-apache:
+        build:
+            context: ./php-apache
+        ports:
+            - 3000:80
+        volumes:
+            - ./www:/var/www
+        environment:
+            MYSQL_HOST: mysql
+            MYSQL_USER: root
+            MYSQL_PASSWORD: root-secret
+            MYSQL_DB: db
+        restart: always
+        links:
+            - "mysql"
+    
+    mysql:
+        image: mysql:latest
+        volumes:
+            - mysql-data:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root-secret
+            MYSQL_DATABASE: db
+            MYSQL_USER: mysql_user
+            MYSQL_PASSWORD: user-secret
+        restart: always
+
+    phpmyadmin:
+        image: phpmyadmin:latest
+        restart: always
+        ports:
+            - 8080:80
+        environment:
+            PMA_HOST: mysql
+
+volumes:
+    mysql-data:
