@@ -44,7 +44,13 @@ Simple and minimal directory using pre-made to use Docker Compose to run a LAMP 
 
 6. Build your Apache webserver. It is already configured to use a **bind volume**, mapping the `www` directory in the repo into `/var/www` in the Apache instance. Any changes you make within `www` will are also happening in the instance
 
-7. When you are done, shut down the stack:
+7. (Optional) If you plan on reading or writing files from the server using PHP, be sure to provide the correct directory permissions for the `www-data` group (where `<username>` is your local / docker host username):
+    ```
+    sudo chown -R <username>:www-data www
+    ```
+Doing this will allow files within `/www/html` to be read/written/executed by either Apache or your local user. Very useful if you want to develop the site on your host machine, but run the server in your docker instance. 
+
+8. When you are done, shut down the stack:
    ```
    docker compose down
    ```
